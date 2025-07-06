@@ -1,0 +1,117 @@
+
+  <!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Ajouter un article</title>
+</head>
+<body>
+  <h2>Ajouter un article scientifique</h2>
+ <form id="articleForm">
+  <input type="text" id="titre" placeholder="Titre de l'article" required><br><br>
+  <input type="text" id="auteur" placeholder="Auteur(s)" required><br><br>
+  <input type="text" id="doi" placeholder="DOI de l'article" required><br><br>
+  <input type="date" id="date_pub" placeholder="Date de publication" required><br><br>
+  <textarea id="citation" placeholder="Citation de l'article" required></textarea><br><br>
+  <button type="submit">Ajouter l'article</button>
+</form>
+<div id="message"></div>
+
+<script>
+document.getElementById('articleForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const titre = document.getElementById('titre').value;
+  const auteur = document.getElementById('auteur').value;
+  const doi = document.getElementById('doi').value;
+  const date_pub = document.getElementById('date_pub').value;
+  const citation = document.getElementById('citation').value;
+
+  const params = new URLSearchParams();
+  params.append('titre', titre);
+  params.append('auteur', auteur);
+  params.append('doi', doi);
+  params.append('date_pub', date_pub);
+  params.append('citation', citation);
+
+  fetch('https://sheetdb.io/api/v1/8lg4ejkr9p18w', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify([{
+    "Titre": titre,
+    "Auteur(s)": auteur,
+    "DOI": doi,
+    "Date de publication": date_pub,
+    "Citation": citation
+  }])
+})
+.then(res => res.json())
+.then(data => {
+  document.getElementById('message').textContent = "Article ajouté avec succès !";
+  document.getElementById('articleForm').reset();
+})
+.catch(() => {
+  document.getElementById('message').textContent = "Erreur lors de l'ajout.";
+});
+});
+
+</script>
+<script>
+ function chargerArticles() {
+  fetch('https://sheetdb.io/api/v1/8lg4ejkr9p18w')
+    .then(res => res.json())
+    .then(articles => {
+      const tbody = document.querySelector('#articles-table tbody');
+      tbody.innerHTML = '';
+      articles.forEach((article, idx) => {
+        // idx+2 car la première ligne est l'en-tête
+        const row = idx + 2;
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${article["Titre"]}</td>
+          <td>${article["Auteur(s)"]}</td>
+          <td>${article["DOI"]}</td>
+          <td>${article["Date de publication"]}</td>
+          <td>${article["Citation"]}</td>
+          <td><button onclick="supprimerArticle(${row})">Supprimer</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    });
+}
+
+function supprimerArticle(row) {
+  if(!confirm("Supprimer cet article ?")) return;
+  fetch(`https://sheetdb.io/api/v1/8lg4ejkr9p18w/row/${row}`, {
+    method: 'DELETE'
+  })
+  .then(() => {
+    chargerArticles();
+    alert("Article supprimé !");
+  })
+  .catch(() => {
+    alert("Erreur lors de la suppression.");
+  });
+}
+
+// Appel initial
+chargerArticles();
+</script>
+
+<h2>Liste des articles</h2>
+<table id="articles-table" border="1" cellpadding="5" style="width:100%;margin-top:20px;">
+  <thead>
+    <tr>
+      <th>Titre</th>
+      <th>Auteur(s)</th>
+      <th>DOI</th>
+      <th>Date de publication</th>
+      <th>Citation</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+
+</body>
+</html>

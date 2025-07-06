@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>FACULTE DE MEDECINE - UOB</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="assets/img/logouob.png" rel="icon">
+  <link href="assets/img/logouob.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet"> 
+
+
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
+
+      <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="assets/img/logo.png" alt=""> -->
+         <img src="assets/img/logouob.png" alt="Logo" style="height: 24px; margin: 0 8px; vertical-align: middle;">
+       <b> <h6 class="sitename">Faculté de Médecine</h6></b>
+         
+        <span>UOB</span>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="#hero" class="active">Accueil<br></a></li>
+          <li><a href="LaFaculte.html" class="active">La Faculté<br></a></li>
+ <li class="dropdown"><a href="Formations.html"><span>Formations</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="Formations.html">Non Formations</a></li>
+              <li><a href="Medecine_Generale.html">Médecine Générale</a></li>
+              <li><a href="3eCycle.html">3ème Cycle</a></li>
+              <li><a href="Formation_Continue.html">Formation Continue</a></li>
+              <li><a href="Programmes_Internationnaux.html">Programmes Internationaux</a></li>
+              <li><a href="Stage_Pratique.html">Stages Pratiques</a></li>
+            </ul>
+          </li>
+          <li><a href="Admission.html" class="active">Admission<br></a></li>
+<li class="dropdown"><a href="Recherche.html"><span>Recherche</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="Publications.html">Publications</a></li>
+              <li><a href="Laboratoire.html">Laboratoires</a></li>
+              <li><a href="Evenements.html">Evenements scientifiques</a></li>
+              <li><a href="Projet_Recherche.html">Projets de recherche</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a href="Etudiants.html"><span>Etudiants</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="Espace_Etudiants.html">Espace Etudiant</a></li>
+              <li><a href="Bourses.html">Bourses et Aides</a></li>
+              <li><a href="Espace_Etudiants.html">Vie Etudiante</a></li>
+              <li><a href="Espace_Etudiants.html">Associations Etudiantes</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a href="Actualites.html"><span>Actualités</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="Evenements.html">Événements à venir</a></li>
+              <li><a href="Actualite_Medical.html">Actualité Médical</a></li>
+              <li><a href="Valve.html">Annonces importantes</a></li>
+              <li><a href="recherche.html">Médias et publications</a></li>
+            </ul>
+          </li>
+          <li><a href="Contacts.html">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <a class="btn-getstarted" href="Abonnes.html">S'abonner</a>
+
+    </div>
+        <style>
+    .sent-message {
+      display: none;
+      background: #198754;
+      color: #fff !important;
+      font-size: 1.15rem;
+      font-weight: 600;
+      border-radius: 8px;
+      padding: 16px 18px;
+      margin-top: 18px;
+      box-shadow: 0 2px 8px rgba(25,135,84,0.10);
+      text-align: center;
+      position: relative;
+    }
+    .sent-message::before {
+      content: "\f26b";
+      font-family: "Bootstrap-icons";
+      font-size: 1.5rem;
+      color: #fff;
+      margin-right: 10px;
+      vertical-align: middle;
+      display: inline-block;
+    }
+    </style>
+  </header>
+<!-- ...navbar ici... -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <!-- ...contenu de la navbar... -->
+</nav>
+
+<!-- Bande passante sticky sous la navbar -->
+<div class="bande-passante-sticky">
+  <marquee behavior="scroll" direction="left">
+  <span style="color:#ffffff; font-weight:bold; font-size:1.1rem;">
+    📢 Aucune information sur le programme d’activités de la Faculté de Médecine de l’UOB n’est disponible pour le moment. Veuillez revenir plus tard.
+📩 En cas d’urgence, cliquez sur « Contact » dans le menu pour nous faire part de votre préoccupation....... ... 
+📢 Aucune information sur le programme d’activités de la Faculté de Médecine de l’UOB n’est disponible pour le moment. Veuillez revenir plus tard.
+📩 En cas d’urgence, cliquez sur « Contact » dans le menu pour nous faire part de votre préoccupation....... ...
+📢 Aucune information sur le programme d’activités de la Faculté de Médecine de l’UOB n’est disponible pour le moment. Veuillez revenir plus tard.
+📩 En cas d’urgence, cliquez sur « Contact » dans le menu pour nous faire part de votre préoccupation....... ...
+  </span>
+  </marquee>
+</div>
+
+  <main class="main">
+  
+  
+<!-- Section Bac 1 - Présentation -->
+<section id="bac1-presentation" class="section py-5" style="background: linear-gradient(90deg, #e3f0ff 0%, #f8fbff 100%);">
+    <div class="container" data-aos="fade-up">
+        <div class="section-title text-center mb-5">
+            <h2 class="fw-bold" style="color: #005baa;">Baccalauréat 1 - Présentation</h2>
+            <p class="lead" style="color: #333;">
+                Le Baccalauréat 1 (Bac 1) à la Faculté de Médecine de l'UOB constitue la première étape du cursus médical.<br>
+                Cette année introductive vise à fournir aux étudiants les bases scientifiques et méthodologiques essentielles pour la suite de leurs études en médecine.
+            </p>
+        </div>
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <div class="p-4 rounded-4 shadow-sm bg-white h-100">
+                    <ul class="list-unstyled fs-5">
+                        <li class="mb-3">
+                            <i class="bi bi-bullseye text-primary me-2"></i>
+                            <strong>Objectif :</strong> Acquérir les fondamentaux en sciences biomédicales et développer une méthode de travail universitaire.
+                        </li>
+                        <li class="mb-3">
+                            <i class="bi bi-clock-history text-success me-2"></i>
+                            <strong>Durée :</strong> 1 an académique
+                        </li>
+                        <li>
+                            <i class="bi bi-arrow-right-circle text-danger me-2"></i>
+                            <strong>Débouchés :</strong> Accès au Baccalauréat 2 (Bac 2) en médecine après validation de l'année.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <img src="assets/img/About.jpg" alt="Étudiants Bac 1 Médecine" class="img-fluid rounded-4 shadow-lg border border-3 border-primary" style="max-height:350px; object-fit:cover;">
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Section Bac 1 - Charge Horaire -->
+<section id="bac1-charge-horaire" class="section py-5">
+    <div class="container" data-aos="fade-up">
+        <div class="section-title text-center mb-5">
+            <h2 class="fw-bold" style="color: #005baa;">Bac 1 - Charge Horaire & Équipe pédagogique</h2>
+            <p class="lead" style="color: #333;">
+                Découvrez la répartition des cours, crédits, heures, ainsi que les enseignants responsables pour l'année Bac 1.
+            </p>
+        </div>
+        <div class="table-responsive shadow rounded-4 bg-white p-4">
+            <table class="table table-hover align-middle text-center">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Cours</th>
+                        <th>Crédits</th>
+                        <th>Heures</th>
+                        <th>Professeur</th>
+                        <th>Assistant(s)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Biologie Cellulaire</td>
+                        <td>6</td>
+                        <td>60</td>
+                        <td>Pr. M. KABAMBA</td>
+                        <td>Dr. N. KASONGO</td>
+                    </tr>
+                    <tr>
+                        <td>Chimie Générale & Organique</td>
+                        <td>5</td>
+                        <td>50</td>
+                        <td>Pr. J. MUGABO</td>
+                        <td>Dr. S. BASHIMINA</td>
+                    </tr>
+                    <tr>
+                        <td>Physique Médicale</td>
+                        <td>4</td>
+                        <td>40</td>
+                        <td>Pr. A. KAMBALE</td>
+                        <td>Dr. C. MUGISHA</td>
+                    </tr>
+                    <tr>
+                        <td>Anatomie Générale</td>
+                        <td>7</td>
+                        <td>70</td>
+                        <td>Pr. L. BAHATI</td>
+                        <td>Dr. P. KALUME, Dr. T. KASALI</td>
+                    </tr>
+                    <tr>
+                        <td>Histologie</td>
+                        <td>4</td>
+                        <td>40</td>
+                        <td>Pr. S. KATSHUNGA</td>
+                        <td>Dr. M. KAMBA</td>
+                    </tr>
+                    <tr>
+                        <td>Biochimie</td>
+                        <td>6</td>
+                        <td>60</td>
+                        <td>Pr. D. MUNYAGA</td>
+                        <td>Dr. J. KASEREKA</td>
+                    </tr>
+                    <tr>
+                        <td>Introduction à la Médecine</td>
+                        <td>2</td>
+                        <td>20</td>
+                        <td>Pr. E. KALUNGA</td>
+                        <td>Dr. F. MUGENYI</td>
+                    </tr>
+                    <tr>
+                        <td>Informatique Médicale</td>
+                        <td>2</td>
+                        <td>20</td>
+                        <td>Pr. R. KABILA</td>
+                        <td>Dr. S. KASONGO</td>
+                    </tr>
+                    <tr>
+                        <td>Anglais Médical</td>
+                        <td>2</td>
+                        <td>20</td>
+                        <td>Pr. J. KALUME</td>
+                        <td>Dr. L. BASHIRWA</td>
+                    </tr>
+                    <tr>
+                        <td>Psychologie Médicale</td>
+                        <td>2</td>
+                        <td>20</td>
+                        <td>Pr. M. KASONGO</td>
+                        <td>Dr. A. KAMBALE</td>
+                    </tr>
+                </tbody>
+                <tfoot class="table-light">
+                    <tr>
+                        <th>Total</th>
+                        <th>40</th>
+                        <th>400</th>
+                        <th colspan="2"></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="text-center mt-4">
+            <button id="print-section" class="btn btn-lg btn-gradient-primary shadow rounded-pill px-5" style="background: linear-gradient(90deg,#005baa 0%,#00c6fb 100%); color: #fff; font-weight: bold;">
+                <i class="bi bi-printer me-2"></i>Imprimer / Enregistrer en PDF
+            </button>
+        </div>
+    </div>
+</section>
+<script>
+document.getElementById('print-section').addEventListener('click', function() {
+    window.print();
+});
+</script>
+<style>
+#bac1-charge-horaire .table th,
+#bac1-charge-horaire .table td {
+    vertical-align: middle;
+    font-size: 1.05rem;
+}
+.btn-gradient-primary {
+    background: linear-gradient(90deg,#005baa 0%,#00c6fb 100%);
+    border: none;
+    color: #fff;
+    transition: box-shadow 0.2s;
+}
+.btn-gradient-primary:hover {
+    box-shadow: 0 4px 24px rgba(0,91,170,0.2);
+    color: #fff;
+}
+/* Impression : n'afficher que la section bac1-charge-horaire */
+@media print {
+    body * {
+        visibility: hidden !important;
+    }
+    #bac1-charge-horaire, #bac1-charge-horaire * {
+        visibility: visible !important;
+    }
+    #bac1-charge-horaire {
+        position: absolute !important;
+        left: 0; top: 0; width: 100%;
+        background: #fff !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    #bac1-charge-horaire .btn,
+    #bac1-charge-horaire button,
+    #bac1-charge-horaire [id^="print-section"] {
+        display: none !important;
+    }
+}
+</style>
+<section id="bac1-charge-horaire" class="section py-5">
+    <div class="container" data-aos="fade-up">
+        <div class="section-title text-center mb-5">
+            <h2 class="fw-bold" style="color: #005baa;">Bac 1 - Charge Horaire & Équipe pédagogique</h2>
+            <p class="lead" style="color: #333;">
+                Découvrez la répartition des cours, crédits, heures, ainsi que les enseignants responsables pour l'année Bac 1.
+            </p>
+        </div>
+        <div class="table-responsive shadow rounded-4 bg-white p-4">
+            <table class="table table-hover align-middle text-center">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Cours</th>
+                        <th>Crédits (ECTS)</th>
+                        <th>Heures</th>
+                        <th>Professeur</th>
+                        <th>Assistant(s)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Biologie Cellulaire</td>
+                        <td>6</td>
+                        <td>60</td>
+                        <td>Pr. M. KABAMBA</td>
+                        <td>Dr. N. KASONGO</td>
+                    </tr>
+                    <tr>
+                        <td>Chimie Générale & Organique</td>
+                        <td>5</td>
+                        <td>50</td>
+                        <td>Pr. J. MUGABO</td>
+                        <td>Dr. S. BASHIMINA</td>
+                    </tr>
+                    <tr>
+                        <td>Physique Médicale</td>
+                        <td>4</td>
+                        <td>40</td>
+                        <td>Pr. A. KAMBALE</td>
+                        <td>Dr. C. MUGISHA</td>
+                    </tr>
+                    <tr>
+                        <td>Anatomie Générale</td>
+                        <td>7</td>
+                        <td>70</td>
+                        <td>Pr. L. BAHATI</td>
+                        <td>Dr. P. KALUME, Dr. T. KASALI</td>
+                    </tr>
+                    <tr>
+                        <td>Histologie</td>
+                        <td>4</td>
+                        <td>40</td>
+                        <td>Pr. S. KATSHUNGA</td>
+                        <td>Dr. M. KAMBA</td>
+                    </tr>
+                    <tr>
+                        <td>Biochimie</td>
+                        <td>6</td>
+                        <td>60</td>
+                        <td>Pr. D. MUNYAGA</td>
+                        <td>Dr. J. KASEREKA</td>
+                    </tr>
+                    <tr>
+                        <td>Introduction à la Médecine</td>
+                        <td>2</td>
+                        <td>20</td>
+                        <td>Pr. E. KALUNGA</td>
+                        <td>Dr. F. MUGENYI</td>
+                    </tr>
+                    <tr>
+                        <td>Informatique Médicale</td>
+                        <td>2</td>
+                        <td>20</td>
+                        <td>Pr. R. KABILA</td>
+                        <td>Dr. S. KASONGO</td>
+                    </tr>
+                    <tr>
+                        <td>Anglais Médical</td>
+                        <td>2</td>
+                        <td>20</td>
+                        <td>Pr. J. KALUME</td>
+                        <td>Dr. L. BASHIRWA</td>
+                    </tr>
+                    <tr>
+                        <td>Psychologie Médicale</td>
+                        <td>2</td>
+                        <td>20</td>
+                        <td>Pr. M. KASONGO</td>
+                        <td>Dr. A. KAMBALE</td>
+                    </tr>
+                </tbody>
+                <tfoot class="table-light">
+                    <tr>
+                        <th>Total</th>
+                        <th>40</th>
+                        <th>400</th>
+                        <th colspan="2"></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="text-center mt-4">
+            <button id="download-pdf" class="btn btn-lg btn-gradient-primary shadow rounded-pill px-5" style="background: linear-gradient(90deg,#005baa 0%,#00c6fb 100%); color: #fff; font-weight: bold;">
+                <i class="bi bi-file-earmark-arrow-down me-2"></i>Télécharger le PDF
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- jsPDF & html2canvas CDN for PDF export -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNa5lH8kQb6gQw1k8Qwqv6Qw1k8Qwqv6Qw1k8Qwqv6Qw1k8Qwqv6Qw1k8Qwqv6Qw1k8Qwqv6Qw1k8Qwqv6Qw1k8Qw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-5v4v8Qw1k8Qwqv6Qw1k8Qwqv6Qw1k8Qwqv6Qw1k8Qwqv6Qw1k8Qwqv6Qw1k8Qwqv6Qw1k8Qwqv6Qw1k8Qw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+document.getElementById('download-pdf').addEventListener('click', function() {
+    const section = document.getElementById('bac1-charge-horaire');
+    html2canvas(section, {scale:2, backgroundColor:'#fff'}).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new window.jspdf.jsPDF('p', 'mm', 'a4');
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const imgProps = pdf.getImageProperties(imgData);
+        const pdfWidth = pageWidth - 20;
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        pdf.addImage(imgData, 'PNG', 10, 10, pdfWidth, pdfHeight);
+        const pdfUrl = pdf.output('bloburl');
+        window.open(pdfUrl, '_blank');
+    });
+});
+</script>
+<style>
+#bac1-charge-horaire .table th,
+#bac1-charge-horaire .table td {
+    vertical-align: middle;
+    font-size: 1.05rem;
+}
+.btn-gradient-primary {
+    background: linear-gradient(90deg,#005baa 0%,#00c6fb 100%);
+    border: none;
+    color: #fff;
+    transition: box-shadow 0.2s;
+}
+.btn-gradient-primary:hover {
+    box-shadow: 0 4px 24px rgba(0,91,170,0.2);
+    color: #fff;
+}
+</style>
+
+
+
+
+
+
+     <!-- Contact Section -->
+    <section id="contact" class="contact section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Contact</h2>
+      </div><!-- End Section Title -->
+
+      <div class="mb-5">
+        <iframe style="width: 100%; height: 400px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" allowfullscreen=""></iframe>
+      </div><!-- End Google Maps -->
+
+      <div class="container" data-aos="fade">
+
+        <div class="row gy-5 gx-lg-5">
+
+          <div class="col-lg-4">
+
+            <div class="info">
+              <h3>Nous contacter</h3>
+              <p>La Faculté de Médecine de l’UOB est à votre écoute. Écrivez-nous ou passez nous voir.</p>
+
+              <div class="info-item d-flex">
+                <i class="bi bi-geo-alt flex-shrink-0"></i>
+                <div>
+                  <h4>Location:</h4>
+                  <p>Av michombero, route de l'aeroport, C. Kadutu, Bukavu, Sud-kivu 570</p>
+                </div>
+              </div><!-- End Info Item -->
+
+              <div class="info-item d-flex">
+                <i class="bi bi-envelope flex-shrink-0"></i>
+                <div>
+                  <h4>Email:</h4>
+                  <p>facmed@uob.cd</p>
+                </div>
+              </div><!-- End Info Item -->
+
+              <div class="info-item d-flex">
+                <i class="bi bi-phone flex-shrink-0"></i>
+                <div>
+                  <h4>Call:</h4>
+                  <p>+243996991891</p>
+                </div>
+              </div><!-- End Info Item -->
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-8">
+            <form action="https://formspree.io/f/mgvypkvg" method="post" role="form" class="php-email-form">
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Votre Nom" required="">
+                </div>
+                <div class="col-md-6 form-group mt-3 mt-md-0">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Votre Adresse mail" required="">
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Objet" required="">
+              </div>
+              <div class="form-group mt-3">
+                <textarea class="form-control" name="message" placeholder="Message" required=""></textarea>
+              </div>
+              <div class="my-3">
+                <div class="loading">Envoi en cours</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Votre Message a été envoyé avec succès à la faculté de médecine de l'UOB. ✅</div>
+              </div>
+              <div class="text-center"><button type="submit">Envoyer</button></div>
+            </form>
+          </div><!-- End Contact Form -->
+
+
+
+        </div>
+
+      </div>
+
+    </section><!-- /Contact Section -->
+
+  </main>
+
+  <footer id="footer" class="footer dark-background">
+
+    <div class="footer-top">
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-4 col-md-6 footer-about">
+            <a href="index.html" class="logo d-flex align-items-center">
+              <span class="sitename">Faculté de médecine</span>
+            </a>
+           <h3>
+  <img src="assets/img/logouob.png" alt="Logo UOB" style="height:32px; vertical-align:middle; margin-right:8px;">
+  <span style="color:#dc3545;">U</span>niversité 
+  <span style="color:#ffc107;">O</span>fficielle de 
+  <span style="color:#0d6efd;">B</span>ukavu
+</h3>
+            <div class="footer-contact pt-3">
+              <p> Av michombero, route de l'aeroport, C. Kadutu </p>
+              <p>Bukavu, Sud-kivu 570</p>
+              <p class="mt-3"><strong>Phone:</strong> <span>+243996991891</span></p>
+              <p><strong>Email:</strong> <span>facmed@uob.cd</span></p>
+            </div>
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="copyright text-center">
+      <div class="container d-flex flex-column flex-lg-row justify-content-center justify-content-lg-between align-items-center">
+
+        <div class="d-flex flex-column align-items-center align-items-lg-start">
+          <div>
+            © Copyright <strong><span>Site-Officiel</span></strong>. All Rights Reserved
+          </div>
+          <div class="credits">
+            <!-- All the links in the footer should remain intact. -->
+            <!-- You can delete the links only if you purchased the pro version. -->
+            <!-- Licensing information: https://bootstrapmade.com/license/ -->
+            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/herobiz-bootstrap-business-template/ -->
+            Designed by <a href#="">Fac-Med/UOB</a>
+          </div>
+        </div>
+
+        <div class="social-links order-first order-lg-last mb-3 mb-lg-0">
+          <a href#=""><i class="bi bi-twitter-x"></i></a>
+          <a href#=""><i class="bi bi-facebook"></i></a>
+          <a href#=""><i class="bi bi-instagram"></i></a>
+          <a href#=""><i class="bi bi-linkedin"></i></a>
+        </div>
+
+      </div>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+  <script>
+document.addEventListener("DOMContentLoaded", function() {
+  const form = document.querySelector('.php-email-form');
+  const loading = form.querySelector('.loading');
+  const errorMsg = form.querySelector('.error-message');
+  const sentMsg = form.querySelector('.sent-message');
+
+  // Masquer les messages au départ
+  loading.style.display = "none";
+  errorMsg.style.display = "none";
+  sentMsg.style.display = "none";
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    loading.style.display = "block";
+    errorMsg.style.display = "none";
+    sentMsg.style.display = "none";
+
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+      method: "POST",
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(response => {
+      loading.style.display = "none";
+      if (response.ok) {
+        sentMsg.style.display = "block";
+        form.reset();
+      } else {
+        response.json().then(data => {
+          errorMsg.textContent = data.error || "Une erreur est survenue. Veuillez réessayer.";
+          errorMsg.style.display = "block";
+        });
+      }
+    })
+    .catch(() => {
+      loading.style.display = "none";
+      errorMsg.textContent = "Une erreur est survenue. Veuillez réessayer.";
+      errorMsg.style.display = "block";
+    });
+  });
+});
+</script>
+</body>
+
+</html>
