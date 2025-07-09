@@ -29,7 +29,145 @@
 
 
 </head>
+<style>
+#articles-section {
+  background: #f8f9fa;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+}
+.article-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  transition: transform 0.15s;
+  border-left: 5px solid #0d6efd;
+}
+.article-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 8px 32px rgba(13,110,253,0.10);
+}
+.article-title {
+  color: #0d6efd;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+.article-meta {
+  font-size: 0.95rem;
+  color: #6c757d;
+}
+.article-doi {
+  font-size: 0.95rem;
+  color: #198754;
+  word-break: break-all;
+}
+.article-summary {
+  font-size: 1.05rem;
+  color: #333;
+}
+</style>
+<script>
+const SHEETDB_URL = "https://sheetdb.io/api/v1/8lg4ejkr9p18w";
+let allArticles = [];
 
+function createArticleCard(article) {
+  return `
+    <div class="col-12">
+      <div class="article-card p-4 mb-4 h-100 d-flex flex-column flex-md-row align-items-start">
+        <div class="flex-grow-1">
+          <div class="mb-2 article-title">${article.Titre || "Titre inconnu"}</div>
+          <div class="article-meta mb-1"><i class="bi bi-people"></i> <b>Auteurs:</b> ${article.Auteurs || "N/A"}</div>
+          <div class="article-meta mb-1"><i class="bi bi-calendar-event"></i> <b>Date:</b> ${article["Date de publication"] || "N/A"}</div>
+          <div class="article-doi mb-2"><i class="bi bi-link-45deg"></i> <b>DOI:</b> 
+            ${article.DOI ? `<a href="https://doi.org/${article.DOI}" target="_blank">${article.DOI}</a>` : "N/A"}
+          </div>
+          <div class="article-summary mt-2"><b>Résumé:</b><br>${article.Resumé || "Aucun résumé disponible."}</div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function filterArticles() {
+  const search = document.getElementById("searchInput").value.trim().toLowerCase();
+  const month = document.getElementById("monthInput").value;
+  const year = document.getElementById("yearInput").value.trim();
+  let filtered = allArticles.filter(article => {
+    // Recherche texte (titre, auteurs, DOI, résumé)
+    const text = [article.Titre, article.Auteurs, article.DOI, article.Resumé].join(" ").toLowerCase();
+    if (search && !text.includes(search)) return false;
+    // Date de publication (format attendu: JJ/MM/AAAA ou MM/AAAA ou AAAA)
+    let date = (article["Date de publication"] || "").trim();
+    let dateParts = date.split(/[\/\-]/); // supporte JJ/MM/AAAA ou MM-AAAA
+    let artMonth = dateParts.length >= 2 ? dateParts[1].padStart(2, '0') : "";
+    let artYear = dateParts.length >= 3 ? dateParts[2] : (dateParts.length === 2 ? dateParts[1] : "");
+    if (month && artMonth !== month) return false;
+    if (year && artYear !== year) return false;
+    return true;
+  });
+  renderArticles(filtered);
+}
+
+function renderArticles(articles) {
+  const list = document.getElementById("articles-list");
+  const countDiv = document.getElementById("articles-count");
+  if (countDiv) {
+    if (articles.length === 0) {
+      countDiv.textContent = "Aucun résultat trouvé";
+    } else if (articles.length === 1) {
+      countDiv.textContent = "1 résultat correspondant";
+    } else {
+      countDiv.textContent = `${articles.length} résultats correspondants`;
+    }
+  }
+  list.innerHTML = articles.length ? articles.map(createArticleCard).join("") : '<div class="col-12 text-center text-muted">Aucun article trouvé.</div>';
+}
+
+async function loadArticles() {
+  const loading = document.getElementById("articles-loading");
+  const error = document.getElementById("articles-error");
+  const list = document.getElementById("articles-list");
+  loading.style.display = "";
+  error.classList.add("d-none");
+  list.innerHTML = "";
+
+  try {
+    const res = await fetch(SHEETDB_URL);
+    if (!res.ok) throw new Error("Erreur lors du chargement des articles.");
+    const articles = await res.json();
+    if (!articles.length) throw new Error("Aucun article trouvé.");
+    allArticles = articles;
+    renderArticles(allArticles);
+  } catch (e) {
+    error.textContent = e.message;
+    error.classList.remove("d-none");
+  } finally {
+    loading.style.display = "none";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  loadArticles();
+  document.getElementById("searchInput").addEventListener("input", function(e) {
+    // Ne filtre pas en temps réel, laisse le bouton gérer
+  });
+  document.getElementById("monthInput").addEventListener("change", function(e) {
+    // Ne filtre pas en temps réel, laisse le bouton gérer
+  });
+  document.getElementById("yearInput").addEventListener("input", function(e) {
+    // Ne filtre pas en temps réel, laisse le bouton gérer
+  });
+  document.getElementById("resetFilters").addEventListener("click", function() {
+    document.getElementById("searchInput").value = "";
+    document.getElementById("monthInput").value = "";
+    document.getElementById("yearInput").value = "";
+    renderArticles(allArticles);
+  });
+  document.getElementById("articles-filter-form").addEventListener("submit", function(e) {
+    e.preventDefault();
+    filterArticles();
+  });
+});
+</script>
 <body class="index-page">
 
   <header id="header" class="header d-flex align-items-center sticky-top">
@@ -137,99 +275,61 @@
 
   <main class="main">
   
-  
-        <!-- Section Abonnement aux Services -->
-    <section id="abonnement-services" class="section py-5" style="background: linear-gradient(90deg, #e3f0ff 0%, #f8fbff 100%);">
-      <div class="container" data-aos="fade-up">
-        <div class="section-title text-center mb-5">
-          <h2 class="fw-bold" style="color: #005baa;">Abonnez-vous à nos services</h2>
-          <p class="lead" style="color: #333;">
-            Recevez en avant-première toutes les actualités, événements, offres de formation, publications scientifiques et opportunités de la Faculté de Médecine de l'UOB.<br>
-            Choisissez les services qui vous intéressent et restez connectés à la vie de la faculté !
-          </p>
+<section class="container py-5" id="articles-section">
+  <div class="text-center mb-5">
+    <h2 class="display-5 fw-bold text-primary">Articles Scientifiques</h2>
+    <p class="lead text-secondary">Découvrez les dernières publications de la Faculté de Médecine</p>
+  </div>
+  <!-- Barre de recherche et filtres -->
+  <form id="articles-filter-form" class="row g-3 align-items-end mb-4 justify-content-center" onsubmit="event.preventDefault(); filterArticles();">
+        <div class="col-md-4">
+          <label for="searchInput" class="form-label">Recherche (titre, auteur, DOI, mots clés)</label>
+          <input type="text" class="form-control" id="searchInput" placeholder="Rechercher...">
         </div>
-        <div class="row justify-content-center">
-          <div class="col-lg-8">
-            <form class="php-email-form p-4 rounded-4 shadow bg-white" action="https://formspree.io/f/mgvypkvg" method="POST">
-              <div class="row gy-3">
-                <div class="col-md-6">
-                  <label for="name" class="form-label">Nom complet</label>
-                  <input type="text" name="name" class="form-control" id="name" required>
-                </div>
-                <div class="col-md-6">
-                  <label for="email" class="form-label">Adresse Email</label>
-                  <input type="email" class="form-control" name="email" id="email" required>
-                </div>
-                <div class="col-12">
-                  <label class="form-label">Je souhaite m'abonner à :</label>
-                  <div class="row">
-                    <div class="col-md-6 mb-2">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="services[]" value="Actualités" id="service1">
-                        <label class="form-check-label" for="service1">
-                          <i class="bi bi-newspaper text-primary me-1"></i> Actualités de la faculté
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="services[]" value="Evénements" id="service2">
-                        <label class="form-check-label" for="service2">
-                          <i class="bi bi-calendar-event text-success me-1"></i> Événements & conférences
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="services[]" value="Formations" id="service3">
-                        <label class="form-check-label" for="service3">
-                          <i class="bi bi-mortarboard text-warning me-1"></i> Nouvelles formations & admissions
-                        </label>
-                      </div>
-                    </div>
-                    <div class="col-md-6 mb-2">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="services[]" value="Publications" id="service4">
-                        <label class="form-check-label" for="service4">
-                          <i class="bi bi-journal-bookmark text-info me-1"></i> Publications scientifiques
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="services[]" value="Bourses" id="service5">
-                        <label class="form-check-label" for="service5">
-                          <i class="bi bi-award text-danger me-1"></i> Bourses & aides étudiantes
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="services[]" value="VieEtudiante" id="service6">
-                        <label class="form-check-label" for="service6">
-                          <i class="bi bi-people text-secondary me-1"></i> Vie étudiante & associations
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <label for="message" class="form-label">Message (optionnel)</label>
-                  <textarea class="form-control" name="message" id="message" rows="3" placeholder="Votre question ou suggestion..."></textarea>
-                </div>
-                <div class="col-12 text-center mt-3">
-                  <button type="submit" class="btn btn-primary px-5 py-2 rounded-pill fw-bold">
-                    <i class="bi bi-bell-fill me-2"></i>S'abonner
-                  </button>
-                </div>
-              </div>
-              <div class="loading mt-3" style="display:none;">Envoi en cours...</div>
-              <div class="error-message mt-3" style="display:none;color:#dc3545;"></div>
-              <div class="sent-message mt-3" style="display:none;color:#198754;">Votre abonnement a bien été pris en compte. Merci !</div>
-            </form>
-          </div>
+        <div class="col-md-3">
+          <label for="monthInput" class="form-label">Mois</label>
+          <select class="form-select" id="monthInput">
+            <option value="">Tous</option>
+            <option value="01">Janvier</option>
+            <option value="02">Février</option>
+            <option value="03">Mars</option>
+            <option value="04">Avril</option>
+            <option value="05">Mai</option>
+            <option value="06">Juin</option>
+            <option value="07">Juillet</option>
+            <option value="08">Août</option>
+            <option value="09">Septembre</option>
+            <option value="10">Octobre</option>
+            <option value="11">Novembre</option>
+            <option value="12">Décembre</option>
+          </select>
         </div>
-        <div class="text-center mt-5" style="color:#005baa;">
-          <i class="bi bi-shield-lock-fill me-2"></i>
-          Vos données sont confidentielles et ne seront utilisées que pour vous informer sur la Faculté de Médecine UOB.
+        <div class="col-md-2">
+          <label for="yearInput" class="form-label">Année</label>
+          <input type="number" class="form-control" id="yearInput" placeholder="Année">
+        </div>
+        <div class="col-md-1 d-grid">
+          <button type="submit" class="btn btn-success">Rechercher</button>
+        </div>
+        <div class="col-md-2 d-grid">
+          <button type="button" class="btn btn-secondary" id="resetFilters">Réinitialiser</button>
+        </div>
+      </form>
+      <div class="row mb-2">
+        <div class="col text-end pe-2">
+          <span id="articles-count" class="fw-bold text-primary"></span>
         </div>
       </div>
-    </section>
-
-
-  </main>
+  <div id="articles-list" class="row g-4 justify-content-center">
+    <!-- Les articles seront injectés ici -->
+  </div>
+  <div id="articles-loading" class="text-center my-5">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p class="mt-3">Chargement des articles...</p>
+  </div>
+  <div id="articles-error" class="alert alert-danger d-none text-center"></div>
+</section>
+ </main>
 
   <footer id="footer" class="footer dark-background">
 
@@ -355,3 +455,6 @@ document.addEventListener("DOMContentLoaded", function() {
 </body>
 
 </html>
+
+
+
