@@ -68,8 +68,15 @@
 <script>
 const SHEETDB_URL = "https://sheetdb.io/api/v1/8lg4ejkr9p18w";
 let allArticles = [];
+let currentPage = 1;
+const ARTICLES_PER_PAGE = 10;
 
 function createArticleCard(article) {
+  const url = encodeURIComponent(window.location.href);
+  const title = encodeURIComponent(article.Titre || "Article scientifique");
+  const summary = encodeURIComponent(article.Resumé || "");
+  const doi = article.DOI ? encodeURIComponent(`https://doi.org/${article.DOI}`) : url;
+  const shareText = encodeURIComponent(`${article.Titre || ''} - ${article.Auteurs || ''}`);
   return `
     <div class="col-12">
       <div class="article-card p-4 mb-4 h-100 d-flex flex-column flex-md-row align-items-start">
@@ -78,19 +85,75 @@ function createArticleCard(article) {
           <div class="article-meta mb-1"><i class="bi bi-people"></i> <b>Auteurs:</b> ${article.Auteurs || "N/A"}</div>
           <div class="article-meta mb-1"><i class="bi bi-calendar-event"></i> <b>Date:</b> ${article["Date de publication"] || "N/A"}</div>
           <div class="article-doi mb-2"><i class="bi bi-link-45deg"></i> <b>DOI:</b> 
-            ${article.DOI ? `<a href="https://doi.org/${article.DOI}" target="_blank">${article.DOI}</a>` : "N/A"}
+            ${article.DOI ? `<a href=\"https://doi.org/${article.DOI}\" target=\"_blank\">${article.DOI}</a>` : "N/A"}
           </div>
           <div class="article-summary mt-2"><b>Résumé:</b><br>${article.Resumé || "Aucun résumé disponible."}</div>
+          <div class="mt-3">
+            <span class="me-2">Partager :</span>
+            <a class="btn btn-sm btn-success me-1" target="_blank" title="Partager sur WhatsApp" href="https://wa.me/?text=${shareText}%20${doi}"><i class="bi bi-whatsapp"></i></a>
+            <a class="btn btn-sm btn-primary me-1" target="_blank" title="Partager sur Facebook" href="https://www.facebook.com/sharer/sharer.php?u=${doi}&quote=${title}"><i class="bi bi-facebook"></i></a>
+            <a class="btn btn-sm btn-info me-1" target="_blank" title="Partager sur LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url=${doi}&title=${title}&summary=${summary}"><i class="bi bi-linkedin"></i></a>
+            <a class="btn btn-sm btn-secondary me-1" target="_blank" title="Partager par Email" href="mailto:?subject=${title}&body=${summary}%20${doi}"><i class="bi bi-envelope"></i></a>
+          </div>
         </div>
       </div>
     </div>
   `;
 }
 
+function renderArticles(articles) {
+  const list = document.getElementById("articles-list");
+  const countDiv = document.getElementById("articles-count");
+  const paginationDiv = document.getElementById("articles-pagination");
+  if (countDiv) {
+    if (articles.length === 0) {
+      countDiv.textContent = "Aucun résultat trouvé";
+    } else if (articles.length === 1) {
+      countDiv.textContent = "1 résultat correspondant";
+    } else {
+      countDiv.textContent = `${articles.length} résultats correspondants`;
+    }
+  }
+  // Pagination
+  const totalPages = Math.ceil(articles.length / ARTICLES_PER_PAGE) || 1;
+  if (currentPage > totalPages) currentPage = totalPages;
+  const start = (currentPage - 1) * ARTICLES_PER_PAGE;
+  const end = start + ARTICLES_PER_PAGE;
+  const paginated = articles.slice(start, end);
+  list.innerHTML = paginated.length ? paginated.map(createArticleCard).join("") : '<div class="col-12 text-center text-muted">Aucun article trouvé.</div>';
+  // Affichage pagination
+  if (paginationDiv) {
+    paginationDiv.innerHTML = '';
+    if (totalPages > 1) {
+      let html = '<nav><ul class="pagination justify-content-center">';
+      html += `<li class="page-item${currentPage === 1 ? ' disabled' : ''}"><a class="page-link" href="#" data-page="prev">&laquo;</a></li>`;
+      for (let i = 1; i <= totalPages; i++) {
+        html += `<li class="page-item${i === currentPage ? ' active' : ''}"><a class="page-link" href="#" data-page="${i}">${i}</a></li>`;
+      }
+      html += `<li class="page-item${currentPage === totalPages ? ' disabled' : ''}"><a class="page-link" href="#" data-page="next">&raquo;</a></li>`;
+      html += '</ul></nav>';
+      paginationDiv.innerHTML = html;
+      // Gestion des clics
+      paginationDiv.querySelectorAll('a.page-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          let page = this.getAttribute('data-page');
+          if (page === 'prev' && currentPage > 1) currentPage--;
+          else if (page === 'next' && currentPage < totalPages) currentPage++;
+          else if (!isNaN(parseInt(page))) currentPage = parseInt(page);
+          renderArticles(articles);
+        });
+      });
+    }
+  }
+}
+
 function filterArticles() {
+  currentPage = 1;
   const search = document.getElementById("searchInput").value.trim().toLowerCase();
   const month = document.getElementById("monthInput").value;
   const year = document.getElementById("yearInput").value.trim();
+  const sort = document.getElementById("sortInput").value;
   let filtered = allArticles.filter(article => {
     // Recherche texte (titre, auteurs, DOI, résumé)
     const text = [article.Titre, article.Auteurs, article.DOI, article.Resumé].join(" ").toLowerCase();
@@ -104,22 +167,46 @@ function filterArticles() {
     if (year && artYear !== year) return false;
     return true;
   });
+  // Tri
+  filtered.sort((a, b) => {
+    switch (sort) {
+      case "date_desc": {
+        // Date plus récent d'abord
+        return compareDates(b["Date de publication"], a["Date de publication"]);
+      }
+      case "date_asc": {
+        // Date plus ancien d'abord
+        return compareDates(a["Date de publication"], b["Date de publication"]);
+      }
+      case "titre_az": {
+        return (a.Titre || "").localeCompare(b.Titre || "");
+      }
+      case "titre_za": {
+        return (b.Titre || "").localeCompare(a.Titre || "");
+      }
+      case "auteur_az": {
+        return (a.Auteurs || "").localeCompare(b.Auteurs || "");
+      }
+      case "auteur_za": {
+        return (b.Auteurs || "").localeCompare(a.Auteurs || "");
+      }
+      default:
+        return 0;
+    }
+  });
   renderArticles(filtered);
 }
 
-function renderArticles(articles) {
-  const list = document.getElementById("articles-list");
-  const countDiv = document.getElementById("articles-count");
-  if (countDiv) {
-    if (articles.length === 0) {
-      countDiv.textContent = "Aucun résultat trouvé";
-    } else if (articles.length === 1) {
-      countDiv.textContent = "1 résultat correspondant";
-    } else {
-      countDiv.textContent = `${articles.length} résultats correspondants`;
-    }
-  }
-  list.innerHTML = articles.length ? articles.map(createArticleCard).join("") : '<div class="col-12 text-center text-muted">Aucun article trouvé.</div>';
+function compareDates(dateA, dateB) {
+  // Supporte JJ/MM/AAAA, MM/AAAA, AAAA
+  if (!dateA && !dateB) return 0;
+  if (!dateA) return 1;
+  if (!dateB) return -1;
+  const partsA = dateA.split(/[\/\-]/).reverse();
+  const partsB = dateB.split(/[\/\-]/).reverse();
+  const strA = partsA.map(x => x.padStart(2, '0')).join('');
+  const strB = partsB.map(x => x.padStart(2, '0')).join('');
+  return strA.localeCompare(strB);
 }
 
 async function loadArticles() {
@@ -160,6 +247,7 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("searchInput").value = "";
     document.getElementById("monthInput").value = "";
     document.getElementById("yearInput").value = "";
+    document.getElementById("sortInput").value = "date_desc";
     renderArticles(allArticles);
   });
   document.getElementById("articles-filter-form").addEventListener("submit", function(e) {
@@ -308,6 +396,17 @@ document.addEventListener("DOMContentLoaded", function() {
           <label for="yearInput" class="form-label">Année</label>
           <input type="number" class="form-control" id="yearInput" placeholder="Année">
         </div>
+        <div class="col-md-2">
+          <label for="sortInput" class="form-label">Trier par</label>
+          <select class="form-select" id="sortInput">
+            <option value="date_desc">Date (plus récent)</option>
+            <option value="date_asc">Date (plus ancien)</option>
+            <option value="titre_az">Titre (A-Z)</option>
+            <option value="titre_za">Titre (Z-A)</option>
+            <option value="auteur_az">Auteur (A-Z)</option>
+            <option value="auteur_za">Auteur (Z-A)</option>
+          </select>
+        </div>
         <div class="col-md-1 d-grid">
           <button type="submit" class="btn btn-success">Rechercher</button>
         </div>
@@ -320,6 +419,7 @@ document.addEventListener("DOMContentLoaded", function() {
           <span id="articles-count" class="fw-bold text-primary"></span>
         </div>
       </div>
+      <div id="articles-pagination" class="mb-3"></div>
   <div id="articles-list" class="row g-4 justify-content-center">
     <!-- Les articles seront injectés ici -->
   </div>
@@ -328,6 +428,9 @@ document.addEventListener("DOMContentLoaded", function() {
     <p class="mt-3">Chargement des articles...</p>
   </div>
   <div id="articles-error" class="alert alert-danger d-none text-center"></div>
+  <div id="articles-pagination" class="mt-4 text-center">
+    <!-- La pagination sera injectée ici -->
+  </div>
 </section>
  </main>
 
